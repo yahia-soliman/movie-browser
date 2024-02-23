@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { ConfigProvider, FloatButton } from 'antd';
+import { BrowserRouter } from 'react-router-dom';
+import { NavBar } from './components/Navigator';
+import { Router } from './router';
+import { LanguageContext } from './context/language';
+import { useState } from 'react';
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [ lang, setLang ] = useState('en')
+	return (
+		<LanguageContext.Provider value={{ lang, setLang }} >
+			<ConfigProvider direction={lang=='ar'? 'rtl': 'ltr'}>
+				<BrowserRouter>
+					<NavBar />
+					<Router />
+					<FloatButton.BackTop />
+				</BrowserRouter>
+			</ConfigProvider>
+		</LanguageContext.Provider>
+	);
 }
 
 export default App;
